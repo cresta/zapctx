@@ -30,4 +30,4 @@ jobs:
         if: matrix.go-version == '1.15.x'
         uses: shogo82148/actions-goveralls@4cd937b8d4bc76c0624cfe4a10469431b6718a59
         with:
-          path-to-profile: v3/coverage.out
+          path-to-profile: coverage.out
