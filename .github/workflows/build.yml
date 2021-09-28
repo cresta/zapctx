@@ -16,8 +16,6 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Setup CI
-        run: make setup_ci && git stash
       - name: Build
         run: go build -mod=readonly ./...
       - name: Verify
