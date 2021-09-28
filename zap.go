@@ -2,7 +2,6 @@ package zapctx
 
 import (
 	"context"
-
 	"go.uber.org/zap"
 )
 
@@ -46,7 +45,7 @@ type Logger struct {
 	dynamicFields []DynamicFields
 }
 
-func (l *Logger) logger(ctx context.Context) *zap.Logger {
+func (l *Logger) Unwrap(ctx context.Context) *zap.Logger {
 	allFields := fields(ctx)
 	for _, d := range l.dynamicFields {
 		allFields = append(allFields, d(ctx)...)
@@ -59,35 +58,35 @@ func (l *Logger) Info(ctx context.Context, msg string, fields ...zap.Field) {
 		return
 	}
 	l.root.WithOptions(zap.Hooks())
-	l.logger(ctx).Info(msg, fields...)
+	l.Unwrap(ctx).Info(msg, fields...)
 }
 
 func (l *Logger) Warn(ctx context.Context, msg string, fields ...zap.Field) {
 	if l == nil {
 		return
 	}
-	l.logger(ctx).Warn(msg, fields...)
+	l.Unwrap(ctx).Warn(msg, fields...)
 }
 
 func (l *Logger) Error(ctx context.Context, msg string, fields ...zap.Field) {
 	if l == nil {
 		return
 	}
-	l.logger(ctx).Error(msg, fields...)
+	l.Unwrap(ctx).Error(msg, fields...)
 }
 
 func (l *Logger) Debug(ctx context.Context, msg string, fields ...zap.Field) {
 	if l == nil {
 		return
 	}
-	l.logger(ctx).Debug(msg, fields...)
+	l.Unwrap(ctx).Debug(msg, fields...)
 }
 
 func (l *Logger) Panic(ctx context.Context, msg string, fields ...zap.Field) {
 	if l == nil {
 		return
 	}
-	l.logger(ctx).Panic(msg, fields...)
+	l.Unwrap(ctx).Panic(msg, fields...)
 }
 
 func (l *Logger) IfErr(err error) *Logger {
