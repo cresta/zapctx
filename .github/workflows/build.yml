@@ -16,8 +16,6 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Build
-        run: go build -mod=readonly ./...
       - name: Verify
         run: go mod verify
       - name: golangci-lint
