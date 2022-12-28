@@ -23,7 +23,7 @@ jobs:
         with:
           version: latest
       - name: Test code
-        uses: magefile/mage-action@v1
+        uses: magefile/mage-action@v2
         with:
           version: latest
           args: go:test
