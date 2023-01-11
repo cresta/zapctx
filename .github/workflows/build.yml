@@ -1,29 +1,16 @@
 name: BuildTest
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   test:
-    strategy:
-      matrix:
-        go-version: [1.16.x, 1.17.x, 1.18.x]
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ matrix.go-version }}
       - name: Check out code
-        uses: actions/checkout@v2
-      - name: Verify
-        run: go mod verify
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2
-        with:
-          version: latest
+        uses: actions/checkout@v3
       - name: Test code
-        uses: magefile/mage-action@v1
-        with:
-          version: latest
-          args: go:test
+        uses: cresta/action-lint-go-external@v1
