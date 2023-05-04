@@ -6,6 +6,7 @@ on:
 jobs:
   approve:
     name: Auto approve renovatebot PRs
+    runs-on: ubuntu-latest
     # Only if made by renovatebot application
     if: github.actor == 'self-hosted-renovatebot[bot]'
     steps:
